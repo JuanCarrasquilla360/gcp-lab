@@ -33,6 +33,7 @@ Crear una canalización de CI/CD que automáticamente construya y despliegue una
    Work item process: Agile
    ```
 
+
 ### 2. **Configurar Service Account en GCP**
 
 ```bash
