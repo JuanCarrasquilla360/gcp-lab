@@ -4,7 +4,7 @@ trigger:
 
 variables:
   # Google Cloud Project Configuration
-  GCP_PROJECT_ID: 'your-gcp-project-id'
+  GCP_PROJECT_ID: 'deploy-php-461616'
   GCP_REGION: 'us-central1'
   SERVICE_NAME: 'helloworld-php-cicd'
   
