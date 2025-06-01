@@ -1,0 +1,131 @@
+# Azure Pipeline Simplificado para CI/CD a Google Cloud Run
+# Diseñado para evitar limitaciones de paralelismo
+
+trigger:
+- main
+
+variables:
+  GCP_PROJECT_ID: 'deploy-php-461616'
+  GCP_REGION: 'us-central1'
+  SERVICE_NAME: 'helloworld-php-cicd'
+  REGISTRY_HOSTNAME: 'gcr.io'
+  IMAGE_NAME: '$(REGISTRY_HOSTNAME)/$(GCP_PROJECT_ID)/$(SERVICE_NAME)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+# Un solo stage con todos los pasos
+jobs:
+- job: BuildAndDeploy
+  displayName: 'Test, Build and Deploy'
+  steps:
+  
+  # Paso 1: Configurar PHP y ejecutar pruebas
+  - script: |
+      echo "🔧 Installing PHP..."
+      sudo apt-get update -qq
+      sudo apt-get install -y php php-cli
+      php --version
+    displayName: 'Setup PHP Environment'
+  
+  - script: |
+      echo "🧪 Running PHP unit tests..."
+      php test/test-app.php
+    displayName: 'Run Unit Tests'
+  
+  # Paso 2: Mostrar archivos del proyecto
+  - script: |
+      echo "📁 Project structure:"
+      ls -la
+      echo "📄 PHP application:"
+      cat index.php
+    displayName: 'Show Project Files'
+  
+  # Paso 3: Construir imagen Docker
+  - task: Docker@2
+    displayName: '🐳 Build Docker Image'
+    inputs:
+      command: 'build'
+      Dockerfile: '**/Dockerfile'
+      tags: |
+        $(IMAGE_NAME):$(Build.BuildId)
+        $(IMAGE_NAME):latest
+  
+  # Paso 4: Instalar Google Cloud SDK y desplegar
+  - script: |
+      set -e
+      
+      echo "☁️ Installing Google Cloud SDK..."
+      curl -sSL https://sdk.cloud.google.com > /tmp/gcl && bash /tmp/gcl --install-dir=~/gcloud --disable-prompts
+      export PATH="~/gcloud/google-cloud-sdk/bin:$PATH"
+      
+      echo "🔐 Authenticating with Google Cloud..."
+      echo '$(GCP_SERVICE_ACCOUNT_KEY)' | base64 -d > /tmp/gcp-key.json
+      ~/gcloud/google-cloud-sdk/bin/gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+      ~/gcloud/google-cloud-sdk/bin/gcloud config set project $(GCP_PROJECT_ID)
+      
+      echo "🐳 Configuring Docker for GCR..."
+      ~/gcloud/google-cloud-sdk/bin/gcloud auth configure-docker --quiet
+      
+      echo "📤 Pushing Docker image to GCR..."
+      docker push $(IMAGE_NAME):$(Build.BuildId)
+      docker push $(IMAGE_NAME):latest
+      
+      echo "🚀 Deploying to Cloud Run..."
+      ~/gcloud/google-cloud-sdk/bin/gcloud run deploy $(SERVICE_NAME) \
+        --image $(IMAGE_NAME):$(Build.BuildId) \
+        --platform managed \
+        --region $(GCP_REGION) \
+        --allow-unauthenticated \
+        --port 80 \
+        --memory 512Mi \
+        --cpu 1000m \
+        --max-instances 10 \
+        --quiet
+      
+      echo "🔍 Getting service URL..."
+      SERVICE_URL=$(~/gcloud/google-cloud-sdk/bin/gcloud run services describe $(SERVICE_NAME) --region=$(GCP_REGION) --format='value(status.url)')
+      echo "✅ Service deployed successfully!"
+      echo "🌐 Service URL: $SERVICE_URL"
+      
+      echo "🧪 Testing deployed service..."
+      sleep 10
+      response=$(curl -s -o /dev/null -w "%{http_code}" $SERVICE_URL)
+      if [ "$response" = "200" ]; then
+        echo "✅ Service is responding correctly!"
+        echo "🎉 Deployment completed successfully!"
+      else
+        echo "❌ Service test failed with HTTP $response"
+        exit 1
+      fi
+      
+      echo "🧹 Cleaning up..."
+      rm -f /tmp/gcp-key.json
+      
+    displayName: '☁️ Deploy to Google Cloud Run'
+    env:
+      GCP_SERVICE_ACCOUNT_KEY: $(GCP_SERVICE_ACCOUNT_KEY)
+  
+  # Paso 5: Mostrar información final
+  - script: |
+      echo ""
+      echo "🎉 ============================================="
+      echo "🎉 DEPLOYMENT COMPLETED SUCCESSFULLY!"
+      echo "🎉 ============================================="
+      echo ""
+      echo "📱 Your application is now live at:"
+      echo "🌐 https://$(SERVICE_NAME)-[random-hash]-$(GCP_REGION).a.run.app"
+      echo ""
+      echo "📊 Monitor your application:"
+      echo "🖥️  Cloud Run Console: https://console.cloud.google.com/run"
+      echo "📝 Logs: https://console.cloud.google.com/logs"
+      echo "📈 Metrics: https://console.cloud.google.com/monitoring"
+      echo ""
+      echo "🏆 Concepts demonstrated:"
+      echo "✅ Continuous Integration (CI)"
+      echo "✅ Continuous Deployment (CD)"
+      echo "✅ Containerization (Docker)"
+      echo "✅ Serverless Computing (Cloud Run)"
+      echo "✅ Infrastructure as Code (YAML)"
+      echo ""
+    displayName: '🎉 Show Success Information' 

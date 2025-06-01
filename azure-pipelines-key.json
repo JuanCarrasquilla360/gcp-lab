@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "deploy-php-461616",
+  "private_key_id": "208bc6dc42f4c7e9e39c11d898b9aa72fadd1447",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDcQSBcvU+Al8Fj\n5saL6NA/Ft5OqHLtj1dJpg+AsilLMiKCMzl6aj1X0dCmrJQMi28GrnPBm3hRuXXY\n4qpqo0yhRqTwGGhcOKx2V0xsNH+71M+kdRPGKbVAcIDssUong1VwHVjjzJSAQZoH\nZDfp45uPk36VBtnwR4Cyo85+Fjegb3m8wD+OeTh5ajnnwAzM098HOk+jfWvQ8lUj\n4QG7E+DEk64+FHe+arE4rYhmbJUGaMpOB4pHUCjxKdJn+XCiiaGIjxbtslX+63Lh\ne+OjB5o6unFeXOg17Ac323y9x8YNS/bk0/Rw/K79LX8/6fgo+7mX+SuGXzSlzf/C\nQl3NkvlpAgMBAAECggEAATYi/k7LKVQ8W82WlAlHaidr+Nw8lWTgOFwCi96YmbMo\nhS73GJhaJsZ7l2UadqpM+Nxcb6+btQn4Lwv9H1NikSSgaBLF5S1cua7PsVMr5jDp\nfpIA/J149tLyyv2x85jWQn5ibigiid7CgQEN1sc5/gtnKxAgjzQN4Up2t1MTz00D\n2y2TXESHLVQ8h//vuhuTg8fqQTc11bchP6D/8v2weWzcS3j+OhLv9LVYMxl74lgW\nr/aWUz72KJFObURwqZMgjnJgzdnAfwFDrmcj8rXHjbVN8boODzSfgP6l5T+w4EDV\nQCxU7An/2uD5gJhFUHMoTywplw/0Op6NgVZaTjFEcQKBgQDvj1ZHj+QfBsMTMV+m\nuPc29uMV2AoRfHDc+ZjeGBlhIzPmOnXg9c9TkqzynYSrZzWiOMzX7baWaBLHBeUq\nWdLVY6vFd91+YPxvUT9LXuti5fz2i7fTdTcdA1y/enaP4OkBd7fsTtmjlHOqeuuN\nQcsPDHpOagbILJwadgwNGHkT+QKBgQDrXp/KVcO1U3d5NXwzaStYd0t2/WsdTtTn\nrIvw3aEYM26lLJ91lrB454iGRY2blt/m3rAvehT/XeIWUhskYWZmv+4PF4QZCW3F\npEihrO4ZMV4nqDHdedyNuk7qgNh/+3wUDE65TpinU1QhPdBEgOjccuh5tEqU3aBh\nnugBhsOM8QKBgQC3m46vbpOTTCV7sl3zdNTVZciK13hwCoaedxc5MhNRph+DF899\nSilLjqHLmfszO/mZihtGbEWDZeTucZBBM3MqZigjQ0maMU+JKiZu6CNVO5z0ggW0\npqRFMmyFvaDdia5Ml6t6DL02aPN1+JxNOd4efJvJOe5UwgwrI8r8xoMWUQKBgQDY\nA/w7QwNfQ79+6uuWc4toofQMvQC14UfdaKr24TGceHev+IhQ73//NuBB+0u/5HSR\n+wdQS4dB5/Q78BchCJNm8feWukpugAzTO7e9Sm0rifeUBfXeAp29JaSP7LjGnRR/\ngdwujkfkKcIo0AZ5GKaezIc4S5O3lMBBWAoufHS0wQKBgQCizp31P6T7EYyUeu6D\nOASQkB13/u5T16za5G4gGoJdLL2g3exbgWPnJuuB4P+1mfWZHbtPR7r21nf5Vqxa\nbbCSWe5xUKJ0sxY3ejO+nfnGKWOoR5sS2UcwBDNE+Dgp6quw4XIHzS32q65wnRJ0\n44eWNA6JLC3lQmhMobx80M62uQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "azure-pipelines-sa@deploy-php-461616.iam.gserviceaccount.com",
+  "client_id": "102876430912642990585",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/azure-pipelines-sa%40deploy-php-461616.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
