@@ -70,6 +70,7 @@ Variables:
 - GCP_SERVICE_ACCOUNT_KEY: "[contenido-del-archivo-json-en-base64]"
 ```
 
+
 **Para obtener la clave en base64:**
 ```bash
 cat azure-pipelines-key.json | base64 -w 0
