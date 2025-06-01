@@ -24,6 +24,7 @@ Crear una canalización de CI/CD que automáticamente construya y despliegue una
 
 1. Ve a [Azure DevOps](https://dev.azure.com)
 2. Crea una nueva organización (si no tienes una)
+
 3. Crea un nuevo proyecto:
    ```
    Nombre: gcp-cloud-run-cicd
